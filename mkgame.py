@@ -163,6 +163,44 @@ def wood(d = .375) :
 	]]
 	return ring_e(pts)
 
+
+def sheep(d = .375) :
+	m = d / .85
+	pts = [svgcuts.Point(x * m, y * m - .05) for (x,y) in [
+		(0, .3),
+		(.05, .2),
+		(.18, .2),
+		(.22, .25),
+		(.3, .14),
+		(.35, .1),
+		(.46, .18),
+		(.6, .06),
+		(.73, .09),
+		(.8, .2),
+		(.88, .2),
+		(.88, .27),
+		(.8, .28),
+		(.8, .38),
+		(.77, .47),
+		(.75, .53),
+		(.75, .8),
+		(.65, .8),
+		(.65, .53),
+		(.57, .5),
+		(.52, .44),
+		(.5, .5),
+		(.42, .54),
+		(.42, .8),
+		(.33, .8),
+		(.33, .54),
+		(.25, .5),
+		(.23, .43),
+		(.15, .48),
+		(.06, .48),
+		(0, .4)
+	]]
+	return ring_e(pts)
+
 def pegboard() :
 	d = .21
 	intercenter = 0.326842
@@ -223,6 +261,8 @@ place(lambda: bread(d=.25), 10)
 place(lambda: bread(), 10)
 place(lambda: wood(d=.25), 10)
 place(lambda: wood(), 10)
+place(lambda: sheep(d=.25), 10)
+place(lambda: sheep(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
