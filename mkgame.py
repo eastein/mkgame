@@ -166,7 +166,7 @@ def wood(d = .375) :
 
 def sheep(d = .375) :
 	m = d / .85
-	pts = [svgcuts.Point(x * m, y * m - .05) for (x,y) in [
+	pts = [svgcuts.Point(y * m - .05, x * m) for (x,y) in [
 		(0, .3),
 		(.05, .2),
 		(.18, .2),
