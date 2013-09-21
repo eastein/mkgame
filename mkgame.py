@@ -97,6 +97,50 @@ def iron(d = .375) :
 	]]
 	return ring_e(pts)
 
+def clay(d = .375) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.0, 0.0),
+		(0.8, 0.0),
+		(0.8, 0.6),
+		(0.0, 0.6)
+	]]
+	return ring_e(pts)
+
+def stone(d = .375) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.0, 0.0),
+		(0.8, 0.0),
+		(0.8, 0.8),
+		(0.0, 0.8)
+	]]
+	return ring_e(pts)
+
+def bread(d = .375) :
+	m = d / .9
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.05, 0.28),
+		(0.12, 0.18),
+		(0.26, 0.1),
+		(0.3, 0.15),
+		(0.4, 0.05),
+		(0.5, 0.06),
+		(0.58, 0.14),
+		(0.62, 0.1),
+		(0.72, 0.05),
+		(0.8, 0.1),
+		(0.81, 0.13),
+		(0.88, 0.14),
+		(0.92, 0.2),
+		(0.92, 0.3),
+		(0.87, 0.43),
+		(0.75, 0.5),
+		(0.18, 0.5),
+		(0.08, 0.4)
+	]]
+	return ring_e(pts)
+
 def pegboard() :
 	d = .21
 	intercenter = 0.326842
@@ -149,10 +193,15 @@ place(lambda: gold(d=.25), 10)
 place(lambda: gold(), 10)
 place(lambda: iron(d=.25), 10)
 place(lambda: iron(), 10)
+place(lambda: clay(d=.25), 10)
+place(lambda: clay(), 10)
+place(lambda: stone(d=.25), 10)
+place(lambda: stone(), 10)
+place(lambda: bread(d=.25), 10)
+place(lambda: bread(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
-
 
 while to_place :
 	to_place = make_board().pack(to_place)
