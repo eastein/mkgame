@@ -3,30 +3,58 @@ import svgcuts
 
 UNIT = 'in'
 
+
 def ring(pts, l) :
 	for i in range(0, len(pts)) :
 		j = (i + 1) % len(pts)
 		l.add_line(svgcuts.Line(pts[i], pts[j], unit=UNIT))
 	return l
 
-def road() :
-	return ring([
+def ring_e(pts) :
+	max_x = 0.0
+	max_y = 0.0
+	for p in pts :
+		max_x = max(p.x, max_x)
+		max_y = max(p.y, max_y)
+	return ring(pts, svgcuts.Layer(max_x, max_y, unit=UNIT))
+
+def village() :
+	floor_pts = [
 		svgcuts.Point(0.0, 0.0),
-		svgcuts.Point(1.75, 0.0),
-		svgcuts.Point(1.75, 0.25),
+		svgcuts.Point(0.5, 0.0),
+		svgcuts.Point(0.5, 0.5),
+		svgcuts.Point(0.0, 0.5)
+	]
+	roof_pts = [
+		svgcuts.Point(0.0, 0.0),
+		svgcuts.Point(0.0, 0.5),
+		svgcuts.Point(0.25, 0.25)
+	]
+	return [
+		ring_e(floor_pts),
+		ring_e(floor_pts),
+		ring_e(roof_pts),
+		ring_e(roof_pts)
+	]
+
+def road() :
+	return ring_e([
+		svgcuts.Point(0.0, 0.0),
+		svgcuts.Point(1.5, 0.0),
+		svgcuts.Point(1.5, 0.25),
 		svgcuts.Point(0.0, 0.25)
-	], svgcuts.Layer(1.75, 0.25, unit=UNIT))
+	])
 
 def wall() :
 	pts = []
-	for x,y in zip([i * 0.125 for i in range(15)], [(i % 2) * 0.125 + .3 for i in range(15)]) :
+	for x,y in zip([i * 0.125 for i in range(13)], [(i % 2) * 0.125 + .3 for i in range(13)]) :
 		pts.append(svgcuts.Point(x, y))
-	pts.append(svgcuts.Point(1.75, 0.0))
+	pts.append(svgcuts.Point(1.5, 0.0))
 	pts.append(svgcuts.Point(0.0, 0.0))
 
-	return ring(pts, svgcuts.Layer(1.75, 0.425, unit=UNIT))
+	return ring_e(pts)
 
-def wheat(d=.375) :   # x  y
+def wheat(d=.375) :
 	m = d / .8
 	pts = [
 		(0, .1),
@@ -45,7 +73,7 @@ def wheat(d=.375) :   # x  y
 	pts += [(x, y * -1) for (x,y) in pts_rev]
 	pts =  [(x, y + .3) for (x, y) in pts]
 	pts =  [(x * m, y * m) for (x, y) in pts]
-	return ring([svgcuts.Point(p[0],p[1]) for p in pts], svgcuts.Layer(d, d * .6/.8, unit=UNIT))
+	return ring_e([svgcuts.Point(p[0],p[1]) for p in pts])
 
 def pegboard() :
 	d = .21
@@ -93,10 +121,11 @@ def place(f, n) :
 		else :
 			to_place.append(made)
 
-place(lambda: wheat(d=.25), 40)
-place(lambda: wheat(), 50)
-place(road, 30)
-place(wall, 30)
+place(lambda: wheat(d=.25), 10)
+place(lambda: wheat(), 10)
+place(road, 10)
+place(wall, 10)
+place(village, 10)
 
 while to_place :
 	to_place = make_board().pack(to_place)
