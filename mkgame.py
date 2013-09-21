@@ -83,8 +83,15 @@ l.copy_from(wheat(), 1.0, 1.0)
 l.write('test.svg')
 """
 
-l = svgcuts.Layer(24.0, 6.0, unit=UNIT)
+boards = []
+def make_me_board() :
+	b = svgcuts.Layer(24.0, 6.0, unit=UNIT)
+	boards.append(b)
+	return b
 
-to_place = [wheat() for i in  range(800)]
-l.pack(to_place)
-l.write('placements.svg')
+to_place = [wheat() for i in  range(180)] + [wall() for i in range(140)]
+while to_place :
+	to_place = make_me_board().pack(to_place)
+
+for i in range(len(boards)) :
+	boards[i].write('board%03d.svg' % i)
