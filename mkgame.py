@@ -1,3 +1,4 @@
+import random
 import svgcuts
 
 UNIT = 'in'
@@ -20,8 +21,8 @@ def wall() :
 	pts = []
 	for x,y in zip([i * 0.125 for i in range(15)], [(i % 2) * 0.125 + .3 for i in range(15)]) :
 		pts.append(svgcuts.Point(x, y))
-	pts.append(svgcuts.Point(1.75, 0.125))
-	pts.append(svgcuts.Point(0.0, 0.125))
+	pts.append(svgcuts.Point(1.75, 0.0))
+	pts.append(svgcuts.Point(0.0, 0.0))
 
 	return ring(pts, svgcuts.Layer(1.75, 0.425, unit=UNIT))
 
@@ -89,7 +90,8 @@ def make_me_board() :
 	boards.append(b)
 	return b
 
-to_place = [wheat() for i in  range(180)] + [wall() for i in range(140)]
+to_place = [wheat(d=.25) for i in  range(40)] + [wheat() for i in  range(40)] + [wall() for i in range(30)]
+
 while to_place :
 	to_place = make_me_board().pack(to_place)
 
