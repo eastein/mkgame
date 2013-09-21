@@ -117,6 +117,27 @@ def stone(d = .375) :
 	]]
 	return ring_e(pts)
 
+def ore(d = .375) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.0, .2),
+		(.1,  .1),
+		(.2,.2),
+		(.4,0.0),
+		(.6,.2),
+		(.8,.2),
+		(.7, .4),
+		(.5, .55),
+		(.67, .7),
+		(.5, .85),
+		(.3, .7),
+		(.1, .77),
+		(0.0,.6),
+		(.1, .4),
+		(0.0,.3)
+	]]
+	return ring_e(pts)
+
 def bread(d = .375) :
 	m = d / .9
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
@@ -257,6 +278,8 @@ place(lambda: clay(d=.25), 10)
 place(lambda: clay(), 10)
 place(lambda: stone(d=.25), 10)
 place(lambda: stone(), 10)
+place(lambda: ore(d=.25), 10)
+place(lambda: ore(), 10)
 place(lambda: bread(d=.25), 10)
 place(lambda: bread(), 10)
 place(lambda: wood(d=.25), 10)
