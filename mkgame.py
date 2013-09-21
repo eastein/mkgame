@@ -13,9 +13,9 @@ def road() :
 	return ring([
 		svgcuts.Point(0.0, 0.0),
 		svgcuts.Point(1.75, 0.0),
-		svgcuts.Point(1.75, 0.125),
-		svgcuts.Point(0.0, 0.125)
-	], svgcuts.Layer(1.75, 0.125, unit=UNIT))
+		svgcuts.Point(1.75, 0.25),
+		svgcuts.Point(0.0, 0.25)
+	], svgcuts.Layer(1.75, 0.25, unit=UNIT))
 
 def wall() :
 	pts = []
@@ -71,29 +71,37 @@ def pegboard() :
 
 	return l
 
-"""
+
 p = pegboard()
+print 'writing pegboard.svg'
 p.write('pegboard.svg')
 
-"""
-
-"""
-l = svgcuts.Layer(24.0, 6.0, unit=UNIT)
-l.copy_from(wheat(), 1.0, 2.0)
-l.copy_from(wheat(), 1.0, 1.0)
-l.write('test.svg')
-"""
 
 boards = []
-def make_me_board() :
+def make_board() :
 	b = svgcuts.Layer(24.0, 6.0, unit=UNIT)
 	boards.append(b)
 	return b
 
-to_place = [wheat(d=.25) for i in  range(40)] + [wheat() for i in  range(40)] + [wall() for i in range(30)]
+to_place = []
+def place(f, n) :
+	global to_place
+	for i in range(n) :
+		made = f()
+		if isinstance(made, list) :
+			to_place += made
+		else :
+			to_place.append(made)
+
+place(lambda: wheat(d=.25), 40)
+place(lambda: wheat(), 50)
+place(road, 30)
+place(wall, 30)
 
 while to_place :
-	to_place = make_me_board().pack(to_place)
+	to_place = make_board().pack(to_place)
 
 for i in range(len(boards)) :
-	boards[i].write('board%03d.svg' % i)
+	fn = 'board%03d.svg' % i
+	print 'writing %s' % fn
+	boards[i].write(fn)
