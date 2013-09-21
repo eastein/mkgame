@@ -222,6 +222,69 @@ def sheep(d = .375) :
 	]]
 	return ring_e(pts)
 
+### units
+
+def ballista(d = .575) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(.05, .1),
+		(.52, .05),
+		(.6,.3),
+		(.7, .33),
+		(.78, .5),
+		(.75, .55),
+		(.75, .65),
+		(.7,.65),
+		(.72, .65),
+		(.76, .70),
+		(.61, .7),
+		(.63, .66),
+		(.3, .66),
+		(.31, .7),
+		(.25, .74),
+		(.17, .7),
+		(.19, .66),
+		(.14, .66),
+		(.14, .6),
+		(.43, .18),
+		(.05,.18)
+	]]
+	return ring_e(pts)
+
+def soldier(d = .575) :
+	m = d / .95
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.0, .3),
+		(0.2, .2),
+		(.56, .2),
+		(.56, 0.0),
+		(.65, 0.0),
+		(.65, .24),
+		(.95, .24),
+		(.95, .36),
+		(.65, .36),
+		(.65, .56),
+		(.56, .56),
+		(.56, .4),
+		(.2, .4)
+	]]
+	return ring_e(pts)
+
+def craftsman(d = .575) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(.2, 0.0),
+		(.4, .2),
+		(.4, .3),
+		(.8, .3),
+		(.8, .48),
+		(.4, .48),
+		(.4, .7),
+		(0.0, .7),
+		(.0, .2)
+	]]
+	return ring_e(pts)
+
 def pegboard() :
 	d = .21
 	intercenter = 0.326842
@@ -289,6 +352,10 @@ place(lambda: sheep(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
+
+place(ballista, 5)
+place(soldier, 5)
+place(craftsman, 5)
 
 while to_place :
 	to_place = make_board().pack(to_place)
