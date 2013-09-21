@@ -186,7 +186,7 @@ def wood(d = .375) :
 
 
 def sheep(d = .375) :
-	m = d / .85
+	m = d / .68
 	pts = [svgcuts.Point(y * m - .05, x * m) for (x,y) in [
 		(0, .3),
 		(.05, .2),
@@ -271,19 +271,35 @@ def soldier(d = .575) :
 	return ring_e(pts)
 
 def craftsman(d = .575) :
-	m = d / .8
+	m = d / .92
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
 		(.2, 0.0),
 		(.4, .2),
 		(.4, .3),
-		(.8, .3),
-		(.8, .48),
+		(.92, .3),
+		(.92, .48),
 		(.4, .48),
 		(.4, .7),
 		(0.0, .7),
 		(.0, .2)
 	]]
 	return ring_e(pts)
+
+def laborer(d = .575) :
+	m = d / 1.2
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.0, .3),
+		(.2, .1),
+		(.4, .085),
+		(.4, .22),
+		(.95, .22),
+		(.95, .38),
+		(.4, .38),
+		(.4, .52),
+		(.2, .5)
+	]]
+	return ring_e(pts)
+
 
 def pegboard() :
 	d = .21
@@ -317,7 +333,7 @@ p.write('pegboard.svg')
 
 boards = []
 def make_board() :
-	b = svgcuts.Layer(24.0, 6.0, unit=UNIT)
+	b = svgcuts.Layer(4.0, 4.0, unit=UNIT)
 	boards.append(b)
 	return b
 
@@ -331,31 +347,20 @@ def place(f, n) :
 		else :
 			to_place.append(made)
 
-place(lambda: wheat(d=.25), 10)
-place(lambda: wheat(), 10)
-place(lambda: gold(d=.25), 10)
-place(lambda: gold(), 10)
-place(lambda: iron(d=.25), 10)
-place(lambda: iron(), 10)
-place(lambda: clay(d=.25), 10)
-place(lambda: clay(), 10)
-place(lambda: stone(d=.25), 10)
-place(lambda: stone(), 10)
-place(lambda: ore(d=.25), 10)
-place(lambda: ore(), 10)
-place(lambda: bread(d=.25), 10)
-place(lambda: bread(), 10)
-place(lambda: wood(d=.25), 10)
-place(lambda: wood(), 10)
-place(lambda: sheep(d=.25), 10)
-place(lambda: sheep(), 10)
-place(road, 10)
-place(wall, 10)
-place(village, 10)
+def resource(f, d=[(.38, 1), (.5, 1)]) :
+	for (sz, n) in d :
+		place(lambda: f(d=sz), n)
 
-place(ballista, 5)
-place(soldier, 5)
-place(craftsman, 5)
+[resource(f) for f in [wheat, gold, iron, clay, stone, ore, bread, wood, sheep]]
+
+place(road, 2)
+place(wall, 4)
+place(village, 4)
+
+place(ballista, 1)
+place(soldier, 1)
+place(craftsman, 1)
+place(laborer, 1)
 
 while to_place :
 	to_place = make_board().pack(to_place)
@@ -364,3 +369,10 @@ for i in range(len(boards)) :
 	fn = 'board%03d.svg' % i
 	print 'writing %s' % fn
 	boards[i].write(fn)
+
+# notes from this edition:
+
+# shovel and sword need to be bigger
+# trees should be bigger
+# bread should be bigger
+
