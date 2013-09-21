@@ -1,3 +1,4 @@
+import math
 import random
 import svgcuts
 
@@ -75,6 +76,14 @@ def wheat(d=.375) :
 	pts =  [(x * m, y * m) for (x, y) in pts]
 	return ring_e([svgcuts.Point(p[0],p[1]) for p in pts])
 
+def gold(d = .375) :
+	r = d / 2.0
+	n = 40
+	phi = math.pi * 2
+	pts = [svgcuts.Point(r + math.sin(phi * i / float(n)) * r, r + math.cos(phi * i / float(n)) * r) for i in range(n)]
+	return ring_e(pts)
+
+
 def pegboard() :
 	d = .21
 	intercenter = 0.326842
@@ -123,9 +132,12 @@ def place(f, n) :
 
 place(lambda: wheat(d=.25), 10)
 place(lambda: wheat(), 10)
+place(lambda: gold(d=.25), 10)
+place(lambda: gold(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
+
 
 while to_place :
 	to_place = make_board().pack(to_place)
