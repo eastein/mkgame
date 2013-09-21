@@ -102,8 +102,8 @@ def clay(d = .375) :
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
 		(0.0, 0.0),
 		(0.8, 0.0),
-		(0.8, 0.6),
-		(0.0, 0.6)
+		(0.8, 0.43),
+		(0.0, 0.43)
 	]]
 	return ring_e(pts)
 
