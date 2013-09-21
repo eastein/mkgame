@@ -141,6 +141,28 @@ def bread(d = .375) :
 	]]
 	return ring_e(pts)
 
+def wood(d = .375) :
+	m = d / .85
+	pts = [svgcuts.Point(x * m - .05, y * m - .05) for (x,y) in [
+		(.05, .3),
+		(.15, .3),
+		(.15, .05),
+		(.32, .2),
+		(.4, .1),
+		(.63, .3),
+		(.7, .2),
+		(.9, .4),
+		(.7, .6),
+		(.63, .5),
+		(.4, .7),
+		(.32, .6),
+		(.15, .75),
+		(.15, .5),
+		(.05, .5)
+
+	]]
+	return ring_e(pts)
+
 def pegboard() :
 	d = .21
 	intercenter = 0.326842
@@ -199,6 +221,8 @@ place(lambda: stone(d=.25), 10)
 place(lambda: stone(), 10)
 place(lambda: bread(d=.25), 10)
 place(lambda: bread(), 10)
+place(lambda: wood(d=.25), 10)
+place(lambda: wood(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
