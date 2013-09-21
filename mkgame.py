@@ -83,6 +83,19 @@ def gold(d = .375) :
 	pts = [svgcuts.Point(r + math.sin(phi * i / float(n)) * r, r + math.cos(phi * i / float(n)) * r) for i in range(n)]
 	return ring_e(pts)
 
+def iron(d = .375) :
+	m = d / .8
+	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
+		(0.1, 0.0),
+		(0.7, 0.0),
+		(0.8, 0.4),
+		(0.75, 0.43),
+		(0.5, 0.38),
+		(0.3, 0.38),
+		(0.05, 0.43),
+		(0.0, 0.4)
+	]]
+	return ring_e(pts)
 
 def pegboard() :
 	d = .21
@@ -134,6 +147,8 @@ place(lambda: wheat(d=.25), 10)
 place(lambda: wheat(), 10)
 place(lambda: gold(d=.25), 10)
 place(lambda: gold(), 10)
+place(lambda: iron(d=.25), 10)
+place(lambda: iron(), 10)
 place(road, 10)
 place(wall, 10)
 place(village, 10)
