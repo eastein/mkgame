@@ -252,6 +252,7 @@ def ballista(d = .575) :
 	return ring_e(pts)
 
 def soldier(d = .575) :
+	d *= 1.2
 	m = d / .95
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
 		(0.0, .3),
@@ -271,6 +272,7 @@ def soldier(d = .575) :
 	return ring_e(pts)
 
 def craftsman(d = .575) :
+	d *= .93
 	m = d / .92
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
 		(.2, 0.0),
@@ -286,6 +288,7 @@ def craftsman(d = .575) :
 	return ring_e(pts)
 
 def laborer(d = .575) :
+	d *= 1.48
 	m = d / 1.2
 	pts = [svgcuts.Point(x * m, y * m) for (x,y) in [
 		(0.0, .3),
@@ -333,7 +336,7 @@ p.write('pegboard.svg')
 
 boards = []
 def make_board() :
-	b = svgcuts.Layer(4.0, 4.0, unit=UNIT)
+	b = svgcuts.Layer(17.8, 5.25, unit=UNIT)
 	boards.append(b)
 	return b
 
@@ -347,20 +350,20 @@ def place(f, n) :
 		else :
 			to_place.append(made)
 
-def resource(f, d=[(.38, 1), (.5, 1)]) :
+def resource(f, d=[(.45, 25), (.63, 15)]) :
 	for (sz, n) in d :
 		place(lambda: f(d=sz), n)
 
 [resource(f) for f in [wheat, gold, iron, clay, stone, ore, bread, wood, sheep]]
 
-place(road, 2)
-place(wall, 4)
-place(village, 4)
+place(road, 30)
+place(wall, 20)
+place(village, 20)
 
-place(ballista, 1)
-place(soldier, 1)
-place(craftsman, 1)
-place(laborer, 1)
+place(ballista, 8)
+place(soldier, 8)
+place(craftsman, 12)
+place(laborer, 12)
 
 while to_place :
 	to_place = make_board().pack(to_place)
